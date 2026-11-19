@@ -64,8 +64,8 @@ padded_sequences = pad_sequences(sequences, truncating='post', maxlen=max_len)
 # Build a Sequential model with an Embedding layer
 model = Sequential()
 model.add(Embedding(vocab_size, embedding_dim, input_length=max_len))
-model.add(Dropout(0.2))
-model.add(Flatten())
+model.add(Dropout(0.2)) # Randomly Switching Neurons during Training to prevent overfitting
+model.add(Flatten()) # Modifies to 1d array
 model.add(Dense(64, activation='relu'))
 model.add(Dense(64, activation='relu'))
 model.add(Dense(num_classes, activation='softmax'))
