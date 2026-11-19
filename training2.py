@@ -6,7 +6,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
+from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D, Dropout, Flatten
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
@@ -64,9 +64,10 @@ padded_sequences = pad_sequences(sequences, truncating='post', maxlen=max_len)
 # Build a Sequential model with an Embedding layer
 model = Sequential()
 model.add(Embedding(vocab_size, embedding_dim, input_length=max_len))
-model.add(GlobalAveragePooling1D())
-model.add(Dense(16, activation='relu'))
-model.add(Dense(16, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Flatten())
+model.add(Dense(64, activation='relu'))
+model.add(Dense(64, activation='relu'))
 model.add(Dense(num_classes, activation='softmax'))
 
 # Compile the model
